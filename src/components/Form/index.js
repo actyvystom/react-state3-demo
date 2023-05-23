@@ -1,12 +1,12 @@
 import "./Form.css";
 
-export default function Form() {
+export default function Form({ onAddMovie }) {
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
 
-    console.log(data);
+    onAddMovie(data);
     event.target.reset();
     event.target.elements.name.focus();
   }

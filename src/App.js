@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./styles.css";
 import Movie from "./components/Movie/index.js";
 import Form from "./components/Form";
+import { uid } from "uid";
 
 const initialMovieData = [
   {
@@ -23,6 +24,20 @@ const initialMovieData = [
 
 export default function App() {
   const [movies, setMovies] = useState(initialMovieData);
+  function handleAddMovie(newMovie) {
+    setMovies([...movies, { id: uid(), ...newMovie }]);
+  }
+
+  function handleDeleteMovie(id) {
+    setMovies(movies.filter((movie) => movie.id !== id));
+  }
+  function handleToggleLike(id) {
+    setMovies(
+      movies.map((movie) =>
+        movie.id === id ? { ...movie, isLiked: !movie.isLiked } : movie
+      )
+    );
+  }
 
   return (
     <div className="app">
@@ -30,11 +45,17 @@ export default function App() {
       <ul className="list">
         {movies.map((movie) => (
           <li key={movie.id}>
-            <Movie name={movie.name} isLiked={movie.isLiked} />
+            <Movie
+              name={movie.name}
+              isLiked={movie.isLiked}
+              onDeleteMovie={handleDeleteMovie}
+              id={movie.id}
+              onToggleLike={handleToggleLike}
+            />
           </li>
         ))}
       </ul>
-      <Form />
+      <Form onAddMovie={handleAddMovie} />
     </div>
   );
 }
