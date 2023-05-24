@@ -7,6 +7,8 @@ export default function Movie({
   onDeleteMovie,
   onToggleLike,
 }) {
+  // the functions 'onDeleteMovie' and 'onToggleLike' are defined in the parent component (App) and passed in as props. 
+  // They are used as click event handlers on the respective buttons 
   return (
     <section className="movie">
       <h2 className={`movie__title${isLiked ? " movie__title--is-liked" : ""}`}>
