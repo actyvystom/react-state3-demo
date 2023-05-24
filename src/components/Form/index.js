@@ -1,11 +1,12 @@
 import "./Form.css";
 
 export default function Form({ onAddMovie }) {
+  // the onAddMovie function is defined in the parent component (App) and passed in as a prop  
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-
+// we use our function received as a prop to add a new movie to our state existing in the parent component (App) 
     onAddMovie(data);
     event.target.reset();
     event.target.elements.name.focus();
